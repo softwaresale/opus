@@ -1,0 +1,34 @@
+
+<div class="parent-container">
+  <h1 mat-dialog-title>Add Class</h1>
+  <div mat-dialog-content>
+    <form [formGroup]="classForm" class="form-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
+      </mat-form-field>
+      <p class="mat-caption">Times</p>
+      <ng-container *ngFor="let group of timeControls">
+        <form [formGroup]="group" class="duration-form">
+          <mat-form-field appearance="outline">
+            <mat-label>Start</mat-label>
+            <input matInput type="datetime-local" formControlName="start">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>End</mat-label>
+            <input matInput type="datetime-local" formControlName="end">
+          </mat-form-field>
+        </form>
+      </ng-container>
+      <button mat-button (click)="onAddTime()" style="margin-bottom: 16px;"><mat-icon>add</mat-icon></button>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+    </form>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-stroked-button mat-dialog-close="">CANCEL</button>
+    <button mat-raised-button color="accent" [mat-dialog-close]="classForm.value">CREATE</button>
+  </div>
+</div>

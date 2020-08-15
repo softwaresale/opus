@@ -1,0 +1,24 @@
+
+<mat-grid-list [cols]="colCount$ | async" [rowHeight]="400">
+  <mat-grid-tile [rowspan]="1" [colspan]="1">
+    <div class="tile-container">
+      <app-page-container title="Today's Assignments">
+        <app-assignment-list></app-assignment-list>
+      </app-page-container>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile [rowspan]="1" [colspan]="1">
+    <div class="tile-container">
+      <app-page-container title="Upcoming Assignments">
+        <app-assignment-list></app-assignment-list>
+      </app-page-container>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile [rowspan]="1" [colspan]="1">
+    <div class="tile-container">
+      <app-page-container title="Schedule Overview">
+        <p>This will be a schedule</p>
+      </app-page-container>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>

@@ -1,0 +1,7 @@
+---
+
+opus:
+  assignments:
+    table-name: table
+    username: username
+    password: password

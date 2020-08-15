@@ -1,0 +1,38 @@
+
+<div appResponsive baseClass="dialog-container">
+  <h1 mat-dialog-title>
+    Create Assignment
+    <span appResponsive responsiveDesktopClass="camera-btn-desktop">
+      <button mat-icon-button color="primary" style="margin: auto"><mat-icon>camera_alt</mat-icon></button>
+    </span>
+  </h1>
+  <div mat-dialog-content>
+    <form [formGroup]="assignmentForm" class="assignment-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Class</mat-label>
+        <mat-select formControlName="classroom">
+          <mat-option [value]="'calc'">Calculus</mat-option>
+          <mat-option [value]="'spanish'">Spanish</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Due Date</mat-label>
+        <input matInput [matDatepicker]="dueDatePicker" formControlName="dueDate">
+        <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #dueDatePicker [touchUi]="isMobile$ | async"></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+    </form>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-stroked-button mat-dialog-close="">CANCEL</button>
+    <button mat-raised-button color="accent" [mat-dialog-close]="assignmentForm.value">CREATE</button>
+  </div>
+</div>

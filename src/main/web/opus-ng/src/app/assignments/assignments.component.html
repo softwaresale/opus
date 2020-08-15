@@ -1,0 +1,34 @@
+
+<app-page-container title="Assignments" styleClass="top-level-page-container" [actions]="actions">
+  <ng-template #actions>
+    <button mat-stroked-button *ngIf="isMobile$ | async" (click)="onChangeClassroom()">{{ currentClassroom }}</button>
+  </ng-template>
+  <mat-sidenav-container style="height: 100%">
+    <mat-sidenav mode="side" [opened]="!(isMobile$ | async)">
+      <mat-nav-list>
+        <a mat-list-item *ngFor="let item of items">{{ item }}</a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="child-content">
+        <h1>This is some content</h1>
+      </div>
+      <button
+        mat-fab
+        appResponsive
+        baseClass="create-fab-button"
+        (click)="onCreateAssignment()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</app-page-container>
+
+<ng-template #classroomSelect>
+  <h1 mat-dialog-title>Choose Classroom</h1>
+  <div mat-dialog-content>
+    <mat-action-list>
+      <button mat-list-item *ngFor="let item of items" [mat-dialog-close]="item">{{ item }}</button>
+    </mat-action-list>
+  </div>
+</ng-template>

@@ -1,0 +1,22 @@
+
+<app-page-container styleClass="top-level-page-container" title="Schedule" [actions]="content">
+  <ng-template #content>
+    <ng-container *ngIf="(isMobile$ | async) then mobileActions; else desktopActions"></ng-container>
+  </ng-template>
+  <router-outlet></router-outlet>
+</app-page-container>
+
+<ng-template #desktopActions>
+  <button mat-flat-button color="primary" style="margin-right: 8px" (click)="onSwitchView()">{{ notShownView | uppercase }} VIEW</button>
+  <button mat-flat-button color="primary" (click)="onCreateClassroom()">ADD CLASS</button>
+</ng-template>
+
+<ng-template #mobileActions>
+  <button mat-icon-button [matMenuTriggerFor]="actionMenu" aria-label="Schedule Actions">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #actionMenu="matMenu">
+    <button mat-menu-item (click)="onSwitchView()">{{ notShownView | uppercase }} VIEW</button>
+    <button mat-menu-item (click)="onCreateClassroom()">ADD CLASS</button>
+  </mat-menu>
+</ng-template>

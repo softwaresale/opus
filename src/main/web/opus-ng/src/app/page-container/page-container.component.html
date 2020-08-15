@@ -1,0 +1,18 @@
+
+<div
+  appResponsive
+  [responsiveMobileClass]="mobileClass"
+  [responsiveDesktopClass]="desktopClass"
+  class="main-container mat-elevation-z3">
+  <mat-toolbar class="mat-elevation-z3 title-bar" color="accent">
+    <span appResponsive responsiveMobileClass="title-mobile">{{ title }}</span>
+    <span style="flex: 1 1 auto;"><!-- Spacer --></span>
+    <ng-container [ngTemplateOutlet]="actions"></ng-container>
+    <span *ngIf="navLink">
+      <a mat-icon-button [matTooltip]="navTooltip" matTooltipShowDelay="2000" [routerLink]="[navLink]"><mat-icon>chevron_right</mat-icon></a>
+    </span>
+  </mat-toolbar>
+  <div appResponsive responsiveDesktopClass="content-container-desktop" responsiveMobileClass="content-container-mobile">
+    <ng-content></ng-content>
+  </div>
+</div>
