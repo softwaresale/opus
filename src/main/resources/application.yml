@@ -1,5 +1,16 @@
 ---
 
+spring:
+  profiles:
+    active: local
+  datasource:
+    url: jdbc:postgresql://localhost:5432/opus
+    username: opusUser
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
 opus:
   assignments:
     table-name: table

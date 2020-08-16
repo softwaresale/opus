@@ -7,6 +7,8 @@ plugins {
     kotlin("plugin.spring") version "1.3.72"
     kotlin("kapt") version "1.3.61"
     id("org.siouan.frontend") version "3.0.1"
+    kotlin("plugin.allopen") version "1.3.61"
+    kotlin("plugin.jpa") version "1.3.41"
 }
 
 group = "com.github.softwaresale"
@@ -28,6 +30,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtimeOnly("org.postgresql:postgresql")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -39,6 +44,10 @@ dependencies {
     }
     testImplementation("org.springframework.security:spring-security-test")
 
+    // Kotlin Reflection
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+    // YAML support
     implementation("org.yaml:snakeyaml:1.23")
 }
 
@@ -46,6 +55,12 @@ tasks.withType<ProcessResources> {
     from("src/main/web/opus-ng/dist/opus-ng") {
         into("static/")
     }
+}
+
+allOpen {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.Embeddable")
+    annotation("javax.persistence.MappedSuperclass")
 }
 
 frontend {
@@ -59,8 +74,6 @@ frontend {
     checkScript.set("test")
     assembleScript.set("ng build --prod")
 }
-
-
 
 tasks.withType<Test> {
     useJUnitPlatform()
