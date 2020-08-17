@@ -3,6 +3,10 @@ import { Update } from '@ngrx/entity';
 
 import { Assignment } from './assignment.model';
 
+export const requestLoadAssignments = createAction(
+  '[Assignment/API] Requesting Load assignments',
+)
+
 export const loadAssignments = createAction(
   '[Assignment/API] Load Assignments',
   props<{ assignments: Assignment[] }>()

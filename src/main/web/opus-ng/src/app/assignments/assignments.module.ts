@@ -18,10 +18,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { AssignmentDetailsComponent } from './assignment-details/assignment-details.component';
+import { StoreModule } from '@ngrx/store';
+import * as fromAssignments from './assignment-state/assignments.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AssignmentsEffects } from './assignment-state/assignments.effects';
 
 
 @NgModule({
-  declarations: [AssignmentsComponent, AssignmentModifyDialogComponent],
+  declarations: [AssignmentsComponent, AssignmentModifyDialogComponent, AssignmentDetailsComponent],
   imports: [
     CommonModule,
     AssignmentsRoutingModule,
@@ -39,6 +44,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    StoreModule.forFeature(fromAssignments.assignmentsFeatureKey, fromAssignments.reducer),
+    EffectsModule.forFeature([AssignmentsEffects]),
   ]
 })
 export class AssignmentsModule { }

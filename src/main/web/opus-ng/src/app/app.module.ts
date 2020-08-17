@@ -18,6 +18,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
 import { AppStateModule } from './app-state/app-state.module';
+import { HttpClientModule } from '@angular/common/http';
+import { AssignmentsModule } from './assignments/assignments.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { AppStateModule } from './app-state/app-state.module';
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,
+    HttpClientModule,
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
@@ -41,6 +44,7 @@ import { AppStateModule } from './app-state/app-state.module';
     EffectsModule.forRoot([]),
 
     AppStateModule,
+    AssignmentsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

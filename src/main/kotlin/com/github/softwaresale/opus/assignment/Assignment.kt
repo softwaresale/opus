@@ -9,6 +9,7 @@ import javax.persistence.Id
 class Assignment(
         var name: String,
         var due: LocalDate = LocalDate.now().plusDays(1),
+        var complete: Boolean = false,
         var classId: String?,
         @Id @GeneratedValue var id: Long?,
         var description: String?

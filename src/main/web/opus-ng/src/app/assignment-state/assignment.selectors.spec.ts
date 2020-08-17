@@ -1,0 +1,7 @@
+
+
+describe('Assignment Selectors', () => {
+  it('should select the feature state', () => {
+    
+  });
+});
