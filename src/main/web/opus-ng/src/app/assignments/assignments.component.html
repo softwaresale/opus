@@ -1,12 +1,13 @@
 
 <app-page-container title="Assignments" styleClass="top-level-page-container" [actions]="actions">
   <ng-template #actions>
-    <button mat-stroked-button *ngIf="isMobile$ | async" (click)="onChangeClassroom()">{{ currentClassroom }}</button>
+    <button mat-stroked-button *ngIf="isMobile$ | async" (click)="onChangeClassroom()">{{ (currentClassroom$ | async).name }}</button>
   </ng-template>
   <mat-sidenav-container style="height: 100%">
     <mat-sidenav mode="side" [opened]="!(isMobile$ | async)">
       <mat-nav-list>
-        <a mat-list-item *ngFor="let item of items">{{ item }}</a>
+        <a mat-list-item *ngFor="let item of sidebarContent$ | async" [routerLink]="getSidebarNavLink(item) | async">{{ item.name }}</a>
+        <mat-list-item *ngIf="(sidebarContent$ | async).length < 1" disabled>No Classrooms exist</mat-list-item>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -28,7 +29,7 @@
   <h1 mat-dialog-title>Choose Classroom</h1>
   <div mat-dialog-content>
     <mat-action-list>
-      <button mat-list-item *ngFor="let item of items" [mat-dialog-close]="item">{{ item }}</button>
+      <button mat-list-item *ngFor="let item of sidebarContent$ | async" [mat-dialog-close]="item">{{ item.name }}</button>
     </mat-action-list>
   </div>
 </ng-template>

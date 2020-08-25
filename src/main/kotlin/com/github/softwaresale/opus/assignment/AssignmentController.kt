@@ -11,7 +11,7 @@ class AssignmentController(
     fun getAll(): Iterable<Assignment> = assignmentService.getAll()
 
     @GetMapping("/{id}")
-    fun getById(@PathVariable id: String) = assignmentService.getById(id)
+    fun getById(@PathVariable id: Long) = assignmentService.getById(id)
 
     @PostMapping
     fun create(@RequestBody assignment: Assignment) = assignmentService.create(assignment)

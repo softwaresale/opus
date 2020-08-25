@@ -2,21 +2,21 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
 
-import { AssignmentEffects } from './assignment.effects';
+import { AssignmentPageEffects } from './assignment-page.effects';
 
-describe('AssignmentEffects', () => {
+describe('AssignmentPageEffects', () => {
   let actions$: Observable<any>;
-  let effects: AssignmentEffects;
+  let effects: AssignmentPageEffects;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        AssignmentEffects,
+        AssignmentPageEffects,
         provideMockActions(() => actions$)
       ]
     });
 
-    effects = TestBed.inject(AssignmentEffects);
+    effects = TestBed.inject(AssignmentPageEffects);
   });
 
   it('should be created', () => {

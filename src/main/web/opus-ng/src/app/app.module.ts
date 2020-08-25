@@ -20,6 +20,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppStateModule } from './app-state/app-state.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AssignmentsModule } from './assignments/assignments.module';
+import { AssignmentListModule } from './assignment-list/assignment-list.module';
+import { ScheduleModule } from './schedule/schedule.module';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { AssignmentsModule } from './assignments/assignments.module';
     EffectsModule.forRoot([]),
 
     AppStateModule,
-    AssignmentsModule
+    AssignmentsModule,
+    AssignmentListModule,
+    ScheduleModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

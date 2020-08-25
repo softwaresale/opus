@@ -18,6 +18,21 @@
             <mat-label>End</mat-label>
             <input matInput type="datetime-local" formControlName="end">
           </mat-form-field>
+          <mat-checkbox formControlName="repeat">Repeat</mat-checkbox>
+          <div *ngIf="group.get('repeat').value" class="repeat-box">
+            <mat-button-toggle-group multiple (change)="handleToggleChangeEvent(group, $event)" style="margin-bottom: 8px">
+              <mat-button-toggle
+                *ngFor="let day of daysOfTheWeek; index as idx"
+                [checked]="getStartingTimeDay(group) === day"
+                [value]="idx">
+                {{ day | titlecase }}
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+            <mat-form-field appearance="outline">
+              <mat-label>End Repeat Date</mat-label>
+              <input matInput type="date" formControlName="repeatEndDate">
+            </mat-form-field>
+          </div>
         </form>
       </ng-container>
       <button mat-button (click)="onAddTime()" style="margin-bottom: 16px;"><mat-icon>add</mat-icon></button>
@@ -29,6 +44,6 @@
   </div>
   <div mat-dialog-actions align="end">
     <button mat-stroked-button mat-dialog-close="">CANCEL</button>
-    <button mat-raised-button color="accent" [mat-dialog-close]="classForm.value">CREATE</button>
+    <button mat-raised-button color="accent" (click)="onSubmit()">CREATE</button>
   </div>
 </div>

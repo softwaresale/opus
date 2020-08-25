@@ -20,9 +20,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AssignmentDetailsComponent } from './assignment-details/assignment-details.component';
 import { StoreModule } from '@ngrx/store';
-import * as fromAssignments from './assignment-state/assignments.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { AssignmentsEffects } from './assignment-state/assignments.effects';
+import * as fromAssignmentPage from './state/assignment-page.reducer';
+import { AssignmentPageEffects } from './state/assignment-page.effects';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { AssignmentsEffects } from './assignment-state/assignments.effects';
   imports: [
     CommonModule,
     AssignmentsRoutingModule,
+    RouterModule,
     PageContainerModule,
     MatSidenavModule,
     MatListModule,
@@ -44,8 +46,8 @@ import { AssignmentsEffects } from './assignment-state/assignments.effects';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    StoreModule.forFeature(fromAssignments.assignmentsFeatureKey, fromAssignments.reducer),
-    EffectsModule.forFeature([AssignmentsEffects]),
+    StoreModule.forFeature(fromAssignmentPage.assignmentPageFeatureKey, fromAssignmentPage.reducer),
+    EffectsModule.forFeature([AssignmentPageEffects]),
   ]
 })
 export class AssignmentsModule { }

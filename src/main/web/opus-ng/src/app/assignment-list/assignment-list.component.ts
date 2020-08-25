@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Assignment } from '../services/assignment/assignment.model';
+import { selectAssignmentListAssignments } from './state/assignment-list.selectors';
 
 @Component({
   selector: 'app-assignment-list',
@@ -7,11 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AssignmentListComponent implements OnInit {
 
-  assignments = [0, 1, 2, 3].map(ct => `Assignment ${ct}`);
+  assignments$: Observable<Assignment[]>;
 
-  constructor() { }
+  constructor(
+    private store$: Store<any>
+  ) { }
 
   ngOnInit(): void {
+    this.assignments$ = this.store$.pipe(select(selectAssignmentListAssignments));
   }
 
 }

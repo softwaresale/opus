@@ -1,22 +1,30 @@
 
 <ng-container *ngIf="(isMobile$ | async) then mobileCalendar; else desktopCalendar"></ng-container>
 
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>
+
 <ng-template #desktopCalendar>
-  <mwl-calendar-week-view
-    [dayStartHour]="7"
-    [dayEndHour]="20"
-    [viewDate]="viewDate"
-    [events]="events"
-    (hourSegmentClicked)="createClassWithStartTime($event)"
-  >
-  </mwl-calendar-week-view>
+  <ng-container *ngIf="events$ | async; else loading; let events">
+    <mwl-calendar-week-view
+      [dayStartHour]="7"
+      [dayEndHour]="20"
+      [viewDate]="viewDate"
+      [events]="events"
+      (hourSegmentClicked)="createClassWithStartTime($event)"
+    >
+    </mwl-calendar-week-view>
+  </ng-container>
 </ng-template>
 
 <ng-template #mobileCalendar>
-  <mwl-calendar-day-view
-    [dayStartHour]="7"
-    [dayEndHour]="20"
-    [events]="events"
-    [viewDate]="viewDate"
-  ></mwl-calendar-day-view>
+  <ng-container *ngIf="events$ | async; else loading; let events">
+    <mwl-calendar-day-view
+      [dayStartHour]="7"
+      [dayEndHour]="20"
+      [events]="events"
+      [viewDate]="viewDate"
+    ></mwl-calendar-day-view>
+  </ng-container>
 </ng-template>

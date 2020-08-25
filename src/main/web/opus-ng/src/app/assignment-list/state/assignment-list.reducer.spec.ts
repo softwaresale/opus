@@ -1,7 +1,7 @@
-import { reducer, initialState } from './assignment.reducer';
+import { initialState, reducer } from './assignment-list.reducer';
 
-describe('Assignment Reducer', () => {
-  describe('unknown action', () => {
+describe('AssignmentList Reducer', () => {
+  describe('an unknown action', () => {
     it('should return the previous state', () => {
       const action = {} as any;
 

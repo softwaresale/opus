@@ -5,6 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { selectIsMobile } from '../../app-state/app-state.selectors';
+import { createClassroom, requestLoadEvents } from '../state/schedule.actions';
+import { selectScheduleEvents } from '../state/schedule.selectors';
 
 @Component({
   selector: 'app-calendar-view',
@@ -19,8 +21,7 @@ export class CalendarViewComponent implements OnInit {
   calendarView = CalendarView;
   viewDate: Date = new Date(Date.now());
 
-  events: CalendarEvent[] = [
-  ];
+  events$: Observable<CalendarEvent[]>;
 
   constructor(
     private store$: Store<any>,
@@ -28,7 +29,18 @@ export class CalendarViewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    const day = this.viewDate.getDay();
+    const diff = this.viewDate.getDate() - day + (day === 0 ? -6 : 1) - 1;
+    const weekStartDate = new Date(this.viewDate.setDate(diff));
+    const weekEndDate = new Date(weekStartDate);
+    weekEndDate.setDate(weekEndDate.getDate() + 6);
+
     this.isMobile$ = this.store$.pipe(select(selectIsMobile));
+    this.store$.dispatch(requestLoadEvents({ start: weekStartDate, end: weekEndDate }));
+
+    this.events$ = this.store$.pipe(
+      select(selectScheduleEvents),
+    );
   }
 
   createClassWithStartTime(event: { date: Date; sourceEvent: MouseEvent }) {
@@ -36,20 +48,8 @@ export class CalendarViewComponent implements OnInit {
       data: {
         startTime: event.date
       }
-    }).afterClosed().subscribe(this.handleEventCreation.bind(this));
-  }
-
-  private handleEventCreation(val: any) {
-    const newEvents = val.times.map(({ start, end }): CalendarEvent => ({
-      title: val.name,
-      start: new Date(start),
-      end: new Date(end),
-      draggable: true,
-    }));
-
-    this.events = [
-      ...this.events,
-      ...newEvents
-    ];
+    }).afterClosed().subscribe(newClassroom => {
+      this.store$.dispatch(createClassroom({ classroom: newClassroom }));
+    });
   }
 }

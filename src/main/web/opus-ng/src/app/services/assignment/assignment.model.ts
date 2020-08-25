@@ -1,8 +1,8 @@
+
 export interface Assignment {
   id?: number;
   name: string;
-  description: string;
-  due: Date;
+  description?: string;
   complete: boolean;
-  classId: string;
+  due: Date;
 }

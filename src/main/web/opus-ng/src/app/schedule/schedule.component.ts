@@ -5,7 +5,7 @@ import { selectIsMobile } from '../app-state/app-state.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { ClassModifyDialogComponent } from './class-modify-dialog/class-modify-dialog.component';
 import { Router } from '@angular/router';
-import { CalendarEvent } from 'angular-calendar';
+import { createClassroom } from './state/schedule.actions';
 
 @Component({
   selector: 'app-schedule',
@@ -36,13 +36,7 @@ export class ScheduleComponent implements OnInit {
       }
     }).afterClosed().subscribe(val => {
       if (val) {
-        const newEvents = val.times.map(({ start, end }): CalendarEvent => ({
-          title: val.name,
-          start: new Date(start),
-          end: new Date(end),
-          draggable: true,
-        }));
-        // TODO create event
+        this.store$.dispatch(createClassroom({ classroom: val }));
       }
     });
   }

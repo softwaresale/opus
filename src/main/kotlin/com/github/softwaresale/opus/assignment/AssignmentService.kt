@@ -8,7 +8,7 @@ class AssignmentService(
 ) {
     fun getAll(): Iterable<Assignment> = assignmentRepository.findAll()
 
-    fun getById(id: String): Assignment? {
+    fun getById(id: Long): Assignment? {
         val assignment = assignmentRepository.findById(id)
         return if (assignment.isPresent) assignment.get() else null
     }

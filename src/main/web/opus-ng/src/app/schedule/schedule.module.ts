@@ -21,6 +21,15 @@ import { ClassDetailsViewComponent } from './class-details-view/class-details-vi
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { EffectsModule } from '@ngrx/effects';
+import { ScheduleEffects } from './state/schedule.effects';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { StoreModule } from '@ngrx/store';
+import { reducer, scheduleFeatureKey } from './state/schedule.reducer';
 
 
 @NgModule({
@@ -31,7 +40,7 @@ import { MatMenuModule } from '@angular/material/menu';
     ReactiveFormsModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
-      useFactory: adapterFactory
+      useFactory: adapterFactory,
     }),
     PageContainerModule,
     MatButtonModule,
@@ -45,6 +54,13 @@ import { MatMenuModule } from '@angular/material/menu';
     MatSidenavModule,
     MatListModule,
     MatMenuModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatButtonToggleModule,
+    StoreModule.forFeature(scheduleFeatureKey, reducer),
+    EffectsModule.forFeature([ScheduleEffects]),
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
   ]
 })
 export class ScheduleModule { }

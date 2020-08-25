@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Assignment } from './assignment-state/assignment.model';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { selectIsMobile } from './app-state/app-state.selectors';
 import { setDeviceSize } from './app-state/app-state.actions';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';

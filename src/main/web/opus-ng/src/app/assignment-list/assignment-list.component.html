@@ -1,7 +1,8 @@
 
-<mat-nav-list>
+<mat-nav-list *ngIf="assignments$ | async as assignments">
   <a mat-list-item *ngFor="let assignment of assignments">
-    <h3 matLine>{{ assignment }}</h3>
+    <h3 matLine>{{ assignment.name }}</h3>
     <p matLine>Due Date</p>
   </a>
+  <mat-list-item *ngIf="assignments.length === 0">There are no assignments for this class</mat-list-item>
 </mat-nav-list>
