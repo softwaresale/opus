@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
-import java.time.LocalDateTime
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 @RestController
@@ -19,9 +19,8 @@ class CalendarEventController(
 
     @GetMapping
     fun getAll(@RequestParam(name = "start") startStr: String, @RequestParam(name = "end") endStr: String?): List<CalendarEvent> {
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-        val start = LocalDateTime.parse(startStr, formatter)
-        val end = endStr?.let { LocalDateTime.parse(it, formatter) } ?: start.plusDays(6)
+        val start = ZonedDateTime.parse(startStr, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+        val end = endStr?.let { ZonedDateTime.parse(it, DateTimeFormatter.ISO_OFFSET_DATE_TIME) } ?: start.plusDays(6)
         return calendarEventService.getEventsForRange(start, end)
     }
 

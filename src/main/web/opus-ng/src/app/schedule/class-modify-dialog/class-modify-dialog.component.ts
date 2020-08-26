@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatChipListChange } from '@angular/material/chips';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { Classroom } from '../../services/classroom/classroom.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-class-modify-dialog',
@@ -24,9 +25,8 @@ export class ClassModifyDialogComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const start = this.dialogData.startTime;
-    const protoEnd = new Date(start);
-    const end = new Date(protoEnd.setHours(protoEnd.getHours() + 1));
+    const start = moment(this.dialogData.startTime);
+    const end = moment(start).add(1, 'hour');
 
     const startValue = this.processDate(start);
     const endValue = this.processDate(end);
@@ -46,9 +46,12 @@ export class ClassModifyDialogComponent implements OnInit {
     });
   }
 
-  private processDate(date: Date): string {
+  private processDate(date: moment.Moment): string {
+    /*
     date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
     return date.toISOString().slice(0, 16);
+     */
+    return date.format('YYYY-MM-DDTHH:mm');
   }
 
   get timeControls(): FormGroup[] {
@@ -68,15 +71,15 @@ export class ClassModifyDialogComponent implements OnInit {
 
   onAddTime() {
     const lastTime: { start: string; end: string } = this.timeControls[this.timeControls.length - 1].value;
-    const startDate = new Date(lastTime.start);
-    const endDate = new Date(lastTime.end);
-
-    startDate.setDate(startDate.getDate() + 1);
-    endDate.setDate(endDate.getDate() + 1);
+    const startDate = moment(lastTime.start).add(1, 'day');
+    const endDate = moment(lastTime.end).add(1, 'day');
 
     (this.classForm.get('times') as FormArray).push(this.fb.group({
       start: [this.processDate(startDate)],
       end: [this.processDate(endDate)],
+      repeat: [false],
+      repeatDays: this.fb.control([]),
+      repeatEndDate: [null],
     }));
   }
 
@@ -93,12 +96,14 @@ export class ClassModifyDialogComponent implements OnInit {
   }
 
   private normalizeFormValue(value: any) {
+    console.log(`Incoming start and end times: start - ${value.times[0].start}, end - ${value.times[0].end}`);
+    console.log(`Converted to moment: start - ${moment(value.times[0].start).toISOString(true)}, end - ${moment(value.times[0].end).toISOString(true)}`)
     const classroom: Classroom = {
       name: value.name,
       description: value.description,
       times: value.times.map(time => ({
-        startTime: new Date(time.start).toISOString(),
-        endTime: new Date(time.end).toISOString(),
+        startTime: moment(time.start).toISOString(true),
+        endTime: moment(time.end).toISOString(true),
         repeat: time.repeat,
         repeatDays: time.repeatDays.join(','),
         repeatEndDate: new Date(time.repeatEndDate).toISOString(),
@@ -113,5 +118,9 @@ export class ClassModifyDialogComponent implements OnInit {
     const val = this.classForm.value;
     const newClassroom = this.normalizeFormValue(val);
     this.matDialogRef.close(newClassroom);
+  }
+
+  removeTimeBox(idx: number) {
+    (this.classForm.get('times') as FormArray).removeAt(idx)
   }
 }

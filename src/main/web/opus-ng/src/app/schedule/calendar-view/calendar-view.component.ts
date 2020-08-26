@@ -49,7 +49,9 @@ export class CalendarViewComponent implements OnInit {
         startTime: event.date
       }
     }).afterClosed().subscribe(newClassroom => {
-      this.store$.dispatch(createClassroom({ classroom: newClassroom }));
+      if (newClassroom) {
+        this.store$.dispatch(createClassroom({ classroom: newClassroom }));
+      }
     });
   }
 }

@@ -15,8 +15,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Class</mat-label>
         <mat-select formControlName="classroom">
-          <mat-option [value]="'calc'">Calculus</mat-option>
-          <mat-option [value]="'spanish'">Spanish</mat-option>
+          <mat-option *ngFor="let classroom of classrooms$ | async" [value]="classroom.id">{{ classroom.name }}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline">

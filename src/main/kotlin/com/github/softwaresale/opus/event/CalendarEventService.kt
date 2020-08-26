@@ -4,13 +4,13 @@ import com.github.softwaresale.opus.classroom.Classroom
 import com.github.softwaresale.opus.classroom.ClassroomService
 import org.springframework.stereotype.Service
 import java.time.DayOfWeek
-import java.time.LocalDateTime
+import java.time.ZonedDateTime
 
 @Service
 class CalendarEventService(
         private val classroomService: ClassroomService
 ) {
-    fun getEventsForRange(start: LocalDateTime, end: LocalDateTime): List<CalendarEvent> {
+    fun getEventsForRange(start: ZonedDateTime, end: ZonedDateTime): List<CalendarEvent> {
         /*
         Filter the classroom set down to those that either have a start/end date
         within the range, or it's a repeat date and the end date is less than

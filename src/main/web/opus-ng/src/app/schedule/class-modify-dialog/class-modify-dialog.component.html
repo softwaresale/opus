@@ -8,7 +8,7 @@
         <input matInput formControlName="name">
       </mat-form-field>
       <p class="mat-caption">Times</p>
-      <ng-container *ngFor="let group of timeControls">
+      <ng-container *ngFor="let group of timeControls; index as timeIdx">
         <form [formGroup]="group" class="duration-form">
           <mat-form-field appearance="outline">
             <mat-label>Start</mat-label>
@@ -33,6 +33,7 @@
               <input matInput type="date" formControlName="repeatEndDate">
             </mat-form-field>
           </div>
+          <button mat-button class="time-remove-btn" *ngIf="timeControls.length > 1" (click)="removeTimeBox(timeIdx)"><mat-icon>remove</mat-icon></button>
         </form>
       </ng-container>
       <button mat-button (click)="onAddTime()" style="margin-bottom: 16px;"><mat-icon>add</mat-icon></button>
