@@ -29,4 +29,8 @@ export class ClassroomService {
   create(classroom: Classroom) {
     return this.http.post<Classroom>(`${environment.apiBaseUrl}/api/v1/classes`, classroom);
   }
+
+  addAssignment(classId: number, assignment: Assignment) {
+    return this.http.post<Classroom>(`${environment.apiBaseUrl}/api/v1/classes/${classId}/assignments`, assignment);
+  }
 }

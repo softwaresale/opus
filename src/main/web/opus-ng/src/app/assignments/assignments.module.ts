@@ -24,30 +24,32 @@ import { EffectsModule } from '@ngrx/effects';
 import * as fromAssignmentPage from './state/assignment-page.reducer';
 import { AssignmentPageEffects } from './state/assignment-page.effects';
 import { RouterModule } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 @NgModule({
   declarations: [AssignmentsComponent, AssignmentModifyDialogComponent, AssignmentDetailsComponent],
-  imports: [
-    CommonModule,
-    AssignmentsRoutingModule,
-    RouterModule,
-    PageContainerModule,
-    MatSidenavModule,
-    MatListModule,
-    MatChipsModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatIconModule,
-    ResponsiveDirectiveModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    StoreModule.forFeature(fromAssignmentPage.assignmentPageFeatureKey, fromAssignmentPage.reducer),
-    EffectsModule.forFeature([AssignmentPageEffects]),
-  ]
+    imports: [
+        CommonModule,
+        AssignmentsRoutingModule,
+        RouterModule,
+        PageContainerModule,
+        MatSidenavModule,
+        MatListModule,
+        MatChipsModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatIconModule,
+        ResponsiveDirectiveModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        StoreModule.forFeature(fromAssignmentPage.assignmentPageFeatureKey, fromAssignmentPage.reducer),
+        EffectsModule.forFeature([AssignmentPageEffects]),
+        MatToolbarModule,
+    ]
 })
 export class AssignmentsModule { }

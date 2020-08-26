@@ -34,5 +34,4 @@ export class AssignmentModifyDialogComponent implements OnInit {
       description: [''],
     });
   }
-
 }
