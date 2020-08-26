@@ -38,7 +38,7 @@ export class ClassModifyDialogComponent implements OnInit {
           start: [`${startValue}`],
           end: [`${endValue}`],
           repeat: [false],
-          repeatDays: this.fb.control([]),
+          repeatDays: this.fb.control([start.weekday()]),
           repeatEndDate: [null],
         })
       ]),
